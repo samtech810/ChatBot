@@ -1,4 +1,4 @@
-from openai import OpenAI
+import openai
 import json
 import streamlit as st
 from streamlit_lottie import st_lottie
@@ -17,10 +17,10 @@ st.title("!!!وووووووي السلعة")
     
 
 
-OpenAI.api_key = st.secrets["OPENAI_API_KEY"]
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-if "OpenAI_model" not in st.session_state:
-    st.session_state["OpenAI_model"] = "gpt-3.5-turbo"
+if "openai_model" not in st.session_state:
+    st.session_state["openai_model"] = "gpt-3.5-turbo"
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -43,8 +43,8 @@ if prompt := st.chat_input("صافا شوية ؟"):
         
             
         full_response = ""
-        for response in OpenAI.ChatCompletion.create(
-            model=st.session_state["OpenAI_model"],
+        for response in openai.ChatCompletion.create(
+            model=st.session_state["openai_model"],
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
